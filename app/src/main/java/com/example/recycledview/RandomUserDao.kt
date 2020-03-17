@@ -13,8 +13,11 @@ import org.json.JSONObject
 class RandomUserDao private constructor(var context: Context) {
 
     private val users = MutableLiveData<List<RandomUser>>()
+    private val cities = MutableLiveData<List<RandomUser>>()
     private val userList = mutableListOf<RandomUser>()
+    private val cityList = mutableListOf<RandomUser>()
     private var queue: RequestQueue
+
 
     init{
         queue = VolleySingleton.getInstance(context).requestQueue
@@ -29,36 +32,55 @@ class RandomUserDao private constructor(var context: Context) {
             }
     }
 
-    fun addUsers() {
-        VolleySingleton.getInstance(context).addToRequestQueue(getJsonObject())
+    fun addUsers(url:String, type:Int) {
+        VolleySingleton.getInstance(context).addToRequestQueue(getJsonObject(url,type))
+
     }
 
     internal fun getUsers() = users
+    internal fun getCities() = cities
 
-    fun getJsonObject(): JsonObjectRequest{
-        val url = "https://randomuser.me/api/?results=20"
-
-        return JsonObjectRequest(
-            Request.Method.GET, url, null,
+    fun getJsonObject(url: String, type:Int): JsonObjectRequest{
+        //val url ="https://api.openweathermap.org/data/2.5/forecast?id=3689147&lang=es&units=metric&mode=JSON&appid=37dd19dab504fd2b71578cb95bfa9bd8"
+        //"https://randomuser.me/api/?results=5"
+            //"http://dataservice.accuweather.com/forecasts/v1/daily/5day/107123"
+              //
+        val rr : String = ""
+        val JOR = JsonObjectRequest(
+            Request.Method.GET, url,null,
             Response.Listener { response ->
-                //parseObject(response)
-                parseObjectG(response)
+                println("bien")
+                parseObjectG(response, type)
+
             },
             Response.ErrorListener { error->
                 Log.d("WebRequestTest", "That didn't work ${error.message}")
             }
         )
+        return JOR
     }
 
-    private fun parseObjectG(response: JSONObject) {
-        var list = RandomUser.getUser(response)
+    private fun parseObjectG(response: JSONObject, type: Int) {
+        var list = RandomUser.getUser(response,type)
+        println(response)
         val i: Int = 0
         val size: Int = list.size
-        for (i in 0 until size) {
-            val user = list[i]
-            userList.add(user)
+        if(type==1){
+            for (i in 0 until size) {
+                val user = list[i]
+                userList.add(user)
+            }
+
+            users.value = userList
+        }else{
+            for (i in 0 until size) {
+                val user = list[i]
+                cityList.add(user)
+            }
+            cities.value = cityList
+
         }
-        users.value = userList
+
     }
 
 }

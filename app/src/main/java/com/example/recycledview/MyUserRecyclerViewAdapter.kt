@@ -7,11 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.recycledview.data.User
+import com.example.recycledview.data.Cities
 
 
-class MyUserRecyclerViewAdapter(private val mValue: List<User>,private val mListener : MyUserRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>(){
+class MyUserRecyclerViewAdapter(private val mValue: List<Cities>,private val mListener : MyUserRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var va = LayoutInflater.from(parent.context).inflate(R.layout.row,parent,false)
@@ -32,23 +31,23 @@ class MyUserRecyclerViewAdapter(private val mValue: List<User>,private val mList
 
     inner class ViewHolder(view:View):RecyclerView.ViewHolder(view){
 
-        fun bindItems(data: User){
+        fun bindItems(data: Cities){
             val nombre:TextView=itemView.findViewById(R.id.textViewUserName)
             val apellido:TextView=itemView.findViewById(R.id.textViewUserLastName)
             val imagen:ImageView=itemView.findViewById(R.id.UserPhoto)
-            nombre.text = data.name
-            apellido.text = data.lastname
-            Glide.with(itemView.context).load(data.imgsrc).into(imagen)
+            nombre.text = data.cityname
+            //apellido.text = data.temp
+            //Glide.with(itemView.context).load(data.imgsrc).into(imagen)
 
             itemView.setOnClickListener{
-                Toast.makeText(itemView.context, "${data.name}",Toast.LENGTH_LONG).show()
+                Toast.makeText(itemView.context, "${data.cityname}",Toast.LENGTH_LONG).show()
             }
         }
     }
     interface  onListInteractions {
-        fun onListItemInteraction(item: User?)
+        fun onListItemInteraction(item: Cities?)
 
-        fun onListButtonInteraction(item: User?)
+        fun onListButtonInteraction(item: Cities?)
     }
     public fun updateData() {
         notifyDataSetChanged()

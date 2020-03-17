@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-data class User (val cityname: String?, val temp: Double, val temp_max: Double,val temp_min: Double, val Humidity: Double, val Feels_like: Double,val Pressure: Double,val Description: String?, val IconID: String?, val WindSpeeed: Double,val datehour: String?): Parcelable
+data class Cities (val cityname: String?, val temp: Double, val temp_max: Double,val temp_min: Double, val Humidity: Double, val Feels_like: Double,val Pressure: Double,val Description: String?, val IconID: String?, val WindSpeeed: Double): Parcelable
 {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -16,8 +16,7 @@ data class User (val cityname: String?, val temp: Double, val temp_max: Double,v
         parcel.readDouble(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readDouble(),
-        parcel.readString()
+        parcel.readDouble()
 
     ) {
     }
@@ -33,7 +32,7 @@ data class User (val cityname: String?, val temp: Double, val temp_max: Double,v
         parcel.writeString(Description)
         parcel.writeString(IconID)
         parcel.writeDouble(WindSpeeed)
-        parcel.writeString(datehour)
+
     }
 
     override fun describeContents(): Int {

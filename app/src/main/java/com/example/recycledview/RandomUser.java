@@ -1,8 +1,6 @@
 package com.example.recycledview;
 
-import androidx.annotation.NonNull;
-
-import com.google.gson.Gson;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,177 +9,79 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class RandomUser {
+    public String name = "";
+    public double temp = 0;
+    public double feels_like= 0;
+    public double temp_min= 0;
+    public double temp_max= 0;
+    public double pressure= 0;
+    public double humidity= 0;
+    public String dt_txt= "";
+    public String description;
+    public String icon;
+    public double speed;
 
-    public static Gson g = new Gson();
 
-    public String gender;
-    public Name name;
-    public Location location;
-    public String email;
-    public Dob dob;
-    public Registered registered;
-    public String phone;
-    public String cell;
-    public Id id;
-    public Picture picture;
-    public String nat;
-
-    public static ArrayList<RandomUser> getUser(JSONObject response){
+    public static ArrayList<RandomUser> getUser(JSONObject response, int type) {
         ArrayList<RandomUser> list = new ArrayList<>();
+
+        switch (type) {
+            case 1:
+
+
         try {
-            JSONArray info = response.getJSONArray("results");
-            for(int i = 0; i < info.length(); i++){
-                String persona = info.getJSONObject(i).toString();
-                RandomUser temp = g.fromJson(persona, RandomUser.class);
-                list.add(temp);
+            JSONObject cityArray = response.getJSONObject("city");
+            JSONArray ListOb = response.getJSONArray("list");
+            String cityname = cityArray.getString("name");
+            Log.d("Randd1", "funciona" + cityname + " ; ");
+
+            for (int i = 0; i < ListOb.length(); i++) {
+                RandomUser tempo = new RandomUser();
+                tempo.name = cityname;
+                tempo.temp = ListOb.getJSONObject(i).getJSONObject("main").getDouble("temp");
+                tempo.feels_like = ListOb.getJSONObject(i).getJSONObject("main").getDouble("feels_like");
+                tempo.temp_min = ListOb.getJSONObject(i).getJSONObject("main").getDouble("temp_min");
+                tempo.temp_max = ListOb.getJSONObject(i).getJSONObject("main").getDouble("temp_max");
+                tempo.speed = ListOb.getJSONObject(i).getJSONObject("wind").getDouble("speed");
+                tempo.pressure = ListOb.getJSONObject(i).getJSONObject("main").getDouble("pressure");
+                tempo.humidity = ListOb.getJSONObject(i).getJSONObject("main").getDouble("humidity");
+                tempo.description = ListOb.getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("description");
+                tempo.icon = ListOb.getJSONObject(i).getJSONArray("weather").getJSONObject(0).getString("icon");
+                tempo.dt_txt = ListOb.getJSONObject(i).getString("dt_txt");
+                list.add(tempo);
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+        break;
+        case 2:
+
+            try {
+
+                JSONObject ListOb = response.getJSONObject("main");
+                String cityname = response.getString("name");
+                Log.d("Randd2", "funciona" + cityname + " ; ");
+
+                    RandomUser tempo = new RandomUser();
+                    tempo.name = cityname;
+                    tempo.temp = ListOb.getDouble("temp");
+                    tempo.feels_like = ListOb.getDouble("feels_like");
+                    tempo.temp_min = ListOb.getDouble("temp_min");
+                    tempo.temp_max = ListOb.getDouble("temp_max");
+                    tempo.speed = response.getJSONObject("wind").getDouble("speed");
+                    tempo.pressure = ListOb.getDouble("pressure");
+                    tempo.humidity = ListOb.getDouble("humidity");
+                    tempo.description = response.getJSONArray("weather").getJSONObject(0).getString("description");
+                    tempo.icon = response.getJSONArray("weather").getJSONObject(0).getString("icon");
+                    list.add(tempo);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            break;
         }
 
         return list;
     }
 
-    public static class Name {
-        public String title;
-        public String first;
-        public String last;
-
-        public Name(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Location {
-        public Street street;
-        public String city;
-        public String state;
-        public String postcode;
-        public Coordinates coordinates;
-        public TimeZone timezone;
-
-
-        public Location(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Street {
-        public String number;
-        public String name;
-
-        public Street(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Coordinates {
-        public String latitude;
-        public String longitude;
-
-        public Coordinates(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Dob {
-        public String date;
-        public String age;
-
-        public Dob(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Login {
-        public String username;
-        public String password;
-        public String salt;
-        public String md5;
-        public String sha1;
-        public String sha256;
-
-
-        public Login(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Registered {
-        public String date;
-        public String age;
-
-        public Registered(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Id {
-        public String name;
-        public String value;
-
-        public Id(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class TimeZone {
-        public String offset;
-        public String description;
-
-        public TimeZone(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
-
-    public static class Picture {
-        public String large;
-        public String medium;
-        public String thumbnail;
-
-
-        public Picture(){}
-
-        @NonNull
-        @Override
-        public String toString() {
-            return g.toJson(this);
-        }
-    }
 }

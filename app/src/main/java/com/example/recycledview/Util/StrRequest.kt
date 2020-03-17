@@ -1,21 +1,31 @@
 package com.example.recycledview.Util
 
+import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 
-fun getStringRequest() : StringRequest {
-    val url = "https://randomuser.me/api/?results=20"
+fun getStringRequest(url: String) : StringRequest {
 
     val stringRequest = StringRequest(
-        Request.Method.GET, url,
-        Response.Listener<String> { response ->
-            println(response)
+        Request.Method.GET, url,Response.Listener<String> { response ->
+            println("prov.. "+ response)
         },
         Response.ErrorListener {
-            println("error")
-        }
-    )
 
-    return stringRequest
+            @Override
+              fun onErrorResponse(error: VolleyError) {
+                if (error.networkResponse != null) {
+                    Log.d("Error Response code: ", "pa..."+error.networkResponse.statusCode)
+                }
+        }
+
+
+
+
+        });
+
+        return stringRequest
+
 }

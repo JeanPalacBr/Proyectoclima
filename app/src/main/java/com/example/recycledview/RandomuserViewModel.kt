@@ -13,11 +13,15 @@ class RandomUserViewModel(application: Application) : AndroidViewModel(applicati
         randomUserDao = RandomUserDao.getInstance(this.getApplication())
     }
 
-    fun addUsers() {
-        randomUserDao.addUsers()
+    fun addUsers(url:String, type:Int) {
+        randomUserDao.addUsers(url,type)
     }
 
     internal fun getUsers(): MutableLiveData<List<RandomUser>> {
         return randomUserDao.getUsers()
     }
+    internal fun getCities(): MutableLiveData<List<RandomUser>> {
+        return randomUserDao.getCities()
+    }
+
 }
