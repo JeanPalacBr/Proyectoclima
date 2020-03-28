@@ -114,8 +114,8 @@ fun revi(){
 }
     public fun esta(valor: String): Boolean{
         var b = false
-        for(i in 0 until cities.size-1){
-            if(String.equals(cities[i].cityname)){
+        for(i in 0 until cities.size){
+            if(valor.equals(cities[i].cityname)){
                  b = true
             }
 
