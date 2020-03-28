@@ -49,7 +49,7 @@ class RandomUserDao private constructor(var context: Context) {
         val JOR = JsonObjectRequest(
             Request.Method.GET, url,null,
             Response.Listener { response ->
-                println("bien")
+                println("bien "+type)
                 parseObjectG(response, type)
 
             },
@@ -61,7 +61,7 @@ class RandomUserDao private constructor(var context: Context) {
     }
 
     private fun parseObjectG(response: JSONObject, type: Int) {
-        var list = RandomUser.getUser(response,type)
+        val list = RandomUser.getUser(response,type)
         println(response)
         val i: Int = 0
         val size: Int = list.size

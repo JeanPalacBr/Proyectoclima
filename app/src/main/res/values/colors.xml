@@ -3,8 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="verd">#67F75C</color>
+    <color name="verd">#FFEB3B</color>
     <color name="verdc">#7A79DF7D</color>
-    <color name="cielo">#34E9E2</color>
+    <color name="cielo">#59BDFD</color>
+    <color name="fondo2">#9AFFED</color>
+    <color name="fondo3">#FFFFFFFF</color>
+    <color name="fondo">#FFFFFF</color>
+    <color name="semiTransparentColor">#20E62020</color>
     <color name="black">#000000</color>
 </resources>

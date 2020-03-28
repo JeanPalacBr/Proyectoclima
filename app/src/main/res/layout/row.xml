@@ -5,12 +5,15 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:id="@+id/cardviewa"
+
     android:orientation="horizontal">
 
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backdeg1">
+
 
         <ImageView
             android:id="@+id/UserPhoto"
@@ -26,18 +29,36 @@
         <TextView
             android:id="@+id/textViewUserName"
             android:layout_width="match_parent"
-            android:layout_height="19dp"
-            android:layout_marginTop="23dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="-149dp"
+            android:layout_toStartOf="@+id/UserPhoto"
+            android:text="TextView1"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewestado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/textViewUserLastName"
             android:layout_marginEnd="-149dp"
             android:layout_toStartOf="@+id/UserPhoto"
             android:text="TextView1" />
 
+
         <TextView
             android:id="@+id/textViewUserLastName"
             android:layout_width="224dp"
+            android:textSize="30dp"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewUserName"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="18dp"
             android:text="TextView2" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
