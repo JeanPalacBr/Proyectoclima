@@ -23,16 +23,14 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
 
 
     val cities = mutableListOf<Cities>()
-    var auxcities = mutableListOf<Cities>()
     private var adapter : MyUserRecyclerViewAdapter? = null
     lateinit var navController: NavController
     private lateinit var viewModel: RandomUserViewModel
     private var userList2 = mutableListOf<RandomUser>()
-    val urls = mutableListOf<String>()
     val urls2 = mutableListOf<String>()
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
     val apidir = "https://api.openweathermap.org/data/2.5/"
-    //lateinit var binderP : FragmentPersonBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +66,6 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
 
 
             loadData2()
-            //revi()
 
         return view
     }
@@ -85,34 +82,15 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
 
     override fun onListItemInteraction(item: Cities?) {
         val bundle = bundleOf("data" to item,"cityname" to item!!.cityname)
-        navController!!.navigate(R.id.action_mainFragment_to_personFragment, bundle)
-        println("click " + item!!.cityname)
+        navController.navigate(R.id.action_mainFragment_to_personFragment, bundle)
+        println("click " + item.cityname)
     }
 
       override fun onListButtonInteraction(item: Cities?) {
 
     }
-fun revi(){
-    var rem: Int = 0;
-    var aux: Int = 0;
 
-
-    for(i in 0 until cities.size-1){
-        for(j in 0 until auxcities.size-1){
-            if(cities[i].cityname?.compareTo(auxcities[j].cityname.toString())==0) {
-                cities.removeAt(i)
-                rem++
-            }
-        }
-        if(rem == 0){
-            auxcities[aux] = cities[i]
-            aux++
-        }
-        rem = 0
-    }
-    //adapter!!.updateData()
-}
-    public fun esta(valor: String): Boolean{
+     fun esta(valor: String): Boolean{
         var b = false
         for(i in 0 until cities.size){
             if(valor.equals(cities[i].cityname)){
@@ -129,7 +107,7 @@ fun revi(){
                 var i: Int = 0
                 for(cityx in userList2) {
                     if(esta(cityx.name)==false) {
-                        var city = Cities(
+                        val city = Cities(
                             cityx.name,
                             cityx.temp,
                             cityx.temp_max,

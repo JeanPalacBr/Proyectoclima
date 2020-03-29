@@ -78,7 +78,49 @@ class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions
 
         //binder = DataBindingUtil.setContentView(this.requireActivity(), R.layout.fragment_person)
         binder.user2 = user
+
         Toast.makeText(this.context, "Perfil cargado", Toast.LENGTH_LONG).show()
+    }
+    fun ourhour(datatime: String ):String{
+            var aux: Int = 0
+
+            var hora : Int = datatime.substring(11,13).toInt()
+            var dia  : Int = datatime.substring(8,10).toInt()
+            var mes : Int = datatime.substring(5,7).toInt()
+            var anno: Int = datatime.substring(0,4).toInt()
+        var auxdata : String =""
+            if(hora >=5){
+                hora = hora - 5
+
+            }else{
+                hora = 24 - (5-hora)
+
+                dia = dia - 1
+                if((dia+1)<2){
+
+                    mes--
+                    if(mes%2==0){
+                        if(mes== 2){
+                            dia = 28
+                        }else{
+                            dia = 30
+                        }
+                    }else{
+                        dia = 31
+                    }
+                    if(mes<1){
+
+                        mes--
+                    }else{
+                        mes = 12
+                        anno--
+                    }
+                }
+
+            }
+            auxdata = anno.toString()+"-"+mes.toString()+"-"+dia.toString()+" "+hora.toString()+datatime.substring(13)
+            return auxdata
+
     }
     fun loadData() {
         viewModel.getUsers().observe(viewLifecycleOwner, Observer { obsUsers ->
@@ -87,12 +129,12 @@ class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions
                 var i = 0
 
                 for (randUser in userList) {
-
-                    var user = User(
+                    val ourdata: String = ourhour(randUser.dt_txt)
+                    val user = User(
                         randUser.name, randUser.temp, randUser.temp_max, randUser.temp_min,
                         randUser.humidity, randUser.feels_like, randUser.pressure,
                         randUser.description,"http://api.openweathermap.org/img/w/"+randUser.icon+".png",
-                        randUser.speed, randUser.dt_txt
+                        randUser.speed, ourdata
                     )
                     println("userra  "+i+"  ... "+user)
                     users.add(user)
