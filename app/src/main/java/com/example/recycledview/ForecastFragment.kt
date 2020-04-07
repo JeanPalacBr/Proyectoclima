@@ -16,18 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recycledview.Util.getStringRequest
 import com.example.recycledview.data.Cities
 import com.example.recycledview.data.User
-import com.example.recycledview.databinding.FragmentPersonBinding
-import kotlinx.android.synthetic.main.fragment_person.view.*
+import com.example.recycledview.databinding.FragmentForecastBinding
+import kotlinx.android.synthetic.main.fragment_forecast.view.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions {
+class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions {
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
     val apidir = "https://api.openweathermap.org/data/2.5/"
     val forecasts = mutableListOf<User>()
     val users = mutableListOf<User>()
-    private var userList = mutableListOf<RandomUser>()
+    private var userList = mutableListOf<Forecast>()
     private var adapter : MyUserRecyclerViewAdapter2? = null
     lateinit var navController: NavController
     private lateinit var viewModel: RandomUserViewModel
@@ -40,13 +40,13 @@ class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions
     }
 
     lateinit var user : Cities
-    lateinit var binder : FragmentPersonBinding
+    lateinit var binder : FragmentForecastBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binder = DataBindingUtil.inflate(inflater,R.layout.fragment_person,container,false)
+        binder = DataBindingUtil.inflate(inflater,R.layout.fragment_forecast,container,false)
         viewModel = ViewModelProvider(this).get(RandomUserViewModel::class.java)
         return binder.root
     }
@@ -78,7 +78,7 @@ class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions
 
 
 
-        //binder = DataBindingUtil.setContentView(this.requireActivity(), R.layout.fragment_person)
+        //binder = DataBindingUtil.setContentView(this.requireActivity(), R.layout.fragment_forecast)
         binder.user2 = user
 
         Toast.makeText(this.context, "Perfil cargado", Toast.LENGTH_LONG).show()
@@ -127,7 +127,7 @@ class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions
     fun loadData() {
         viewModel.getUsers().observe(viewLifecycleOwner, Observer { obsUsers ->
             run {
-                userList = obsUsers as MutableList<RandomUser>
+                userList = obsUsers as MutableList<Forecast>
                 var i = 0
 
                 for (randUser in userList) {

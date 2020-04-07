@@ -16,6 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/personFragment"
-        android:name="com.example.recycledview.PersonFragment"
+        android:name="com.example.recycledview.ForecastFragment"
         android:label="PersonFragment" />
 </navigation>

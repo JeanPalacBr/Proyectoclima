@@ -26,7 +26,7 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
     private var adapter : MyUserRecyclerViewAdapter? = null
     lateinit var navController: NavController
     private lateinit var viewModel: RandomUserViewModel
-    private var userList2 = mutableListOf<RandomUser>()
+    private var userList2 = mutableListOf<Forecast>()
     val urls2 = mutableListOf<String>()
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
     val apidir = "https://api.openweathermap.org/data/2.5/"
@@ -103,7 +103,7 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
     fun loadData2() {
         viewModel.getCities().observe(viewLifecycleOwner, Observer { obsUsers ->
             run {
-                userList2 = obsUsers as MutableList<RandomUser>
+                userList2 = obsUsers as MutableList<Forecast>
                 var i: Int = 0
                 for(cityx in userList2) {
                     if(esta(cityx.name)==false) {

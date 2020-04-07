@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class RandomUser {
+public class Forecast {
     public String name = "";
     public double temp = 0;
     public double feels_like= 0;
@@ -22,8 +22,8 @@ public class RandomUser {
     public double speed;
 
 
-    public static ArrayList<RandomUser> getUser(JSONObject response, int type) {
-        ArrayList<RandomUser> list = new ArrayList<>();
+    public static ArrayList<Forecast> getUser(JSONObject response, int type) {
+        ArrayList<Forecast> list = new ArrayList<>();
 
         switch (type) {
             case 1:
@@ -36,7 +36,7 @@ public class RandomUser {
             Log.d("Randd1", "funciona" + cityname + " ; ");
 
             for (int i = 0; i < ListOb.length(); i++) {
-                RandomUser tempo = new RandomUser();
+                Forecast tempo = new Forecast();
                 tempo.name = cityname;
                 tempo.temp = ListOb.getJSONObject(i).getJSONObject("main").getDouble("temp");
                 tempo.feels_like = ListOb.getJSONObject(i).getJSONObject("main").getDouble("feels_like");
@@ -62,7 +62,7 @@ public class RandomUser {
                 String cityname = response.getString("name");
                 Log.d("Randd2", "funciona" + cityname + " ; ");
 
-                    RandomUser tempo = new RandomUser();
+                    Forecast tempo = new Forecast();
                     tempo.name = cityname;
                     tempo.temp = ListOb.getDouble("temp");
                     tempo.feels_like = ListOb.getDouble("feels_like");

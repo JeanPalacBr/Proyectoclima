@@ -10,12 +10,12 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
 
-class RandomUserDao private constructor(var context: Context) {
+class ForecastDAO private constructor(var context: Context) {
 
-    private val users = MutableLiveData<List<RandomUser>>()
-    private val cities = MutableLiveData<List<RandomUser>>()
-    private val userList = mutableListOf<RandomUser>()
-    private val cityList = mutableListOf<RandomUser>()
+    private val users = MutableLiveData<List<Forecast>>()
+    private val cities = MutableLiveData<List<Forecast>>()
+    private val userList = mutableListOf<Forecast>()
+    private val cityList = mutableListOf<Forecast>()
     private var queue: RequestQueue
 
 
@@ -25,10 +25,10 @@ class RandomUserDao private constructor(var context: Context) {
 
     companion object{
         @Volatile
-        private var INSTANCE: RandomUserDao? = null
+        private var INSTANCE: ForecastDAO? = null
         fun getInstance(context: Context) =
             INSTANCE ?: synchronized(this){
-                INSTANCE ?: RandomUserDao(context).also { INSTANCE = it }
+                INSTANCE ?: ForecastDAO(context).also { INSTANCE = it }
             }
     }
 
@@ -61,7 +61,7 @@ class RandomUserDao private constructor(var context: Context) {
     }
 
     private fun parseObjectG(response: JSONObject, type: Int) {
-        val list = RandomUser.getUser(response,type)
+        val list = Forecast.getUser(response,type)
         println(response)
         val i: Int = 0
         val size: Int = list.size
