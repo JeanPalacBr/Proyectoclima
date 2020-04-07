@@ -71,7 +71,7 @@ class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions
             "Cartagena"->viewModel.addUsers(apidir+"forecast?id=3687238&lang=es&units=metric&"+apik,1)
             "Pereira"->viewModel.addUsers(apidir+"forecast?id=3672486&lang=es&units=metric&"+apik,1)
             "Santa Marta"->viewModel.addUsers(apidir+"forecast?id=3668605&lang=es&units=metric&"+apik,1)
-            "manizales"->viewModel.addUsers(apidir+"forecast?id=3675443&lang=es&units=metric&"+apik,1)
+            "Manizales"->viewModel.addUsers(apidir+"forecast?id=3675443&lang=es&units=metric&"+apik,1)
             "Ibagué"->viewModel.addUsers(apidir+"forecast?id=3680656&lang=es&units=metric&"+apik,1)
         }
         loadData()
