@@ -55,9 +55,11 @@ class PersonFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable("data")!!
         navController = Navigation.findNavController(view)
+
         adapter = MyUserRecyclerViewAdapter2(users,this)
         view.recyclerva.layoutManager = LinearLayoutManager(context)
         view.recyclerva.adapter = adapter
+
         VolleySingleton.getInstance(activity!!.applicationContext).addToRequestQueue(
             getStringRequest(apidir+"forecast?id=3689147&lang=es&units=metric&"+apik))
         when(user.cityname){

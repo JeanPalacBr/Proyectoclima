@@ -23,7 +23,7 @@ class MyUserRecyclerViewAdapter2(private val mValue: List<User>, private val mLi
     }
 
     override fun onBindViewHolder(holder: MyUserRecyclerViewAdapter2.ViewHolder, position: Int) {
-        holder.bindItems(mValue[position])
+        holder.bindItems(mValue[mValue.size-1])
 
         holder.itemView.setOnClickListener{
             mListener?.onListItemInteraction(mValue[position])

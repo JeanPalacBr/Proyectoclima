@@ -47,15 +47,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_alignTop="@+id/ImgEstado"
                 android:layout_alignEnd="@+id/ImgEstado"
                 android:layout_marginTop="-50dp"
-
-                android:layout_marginEnd="5dp"
+                android:layout_centerInParent="true"
                 android:layout_marginBottom="-50dp"
+                android:layout_marginEnd="-50dp"
                 android:orientation="vertical"
-                android:paddingStart="30dp">
+                >
 
                 <TextView
                     android:id="@+id/citynd"
@@ -64,7 +63,10 @@
                     android:baselineAligned="false"
                     android:fontFamily="cursive"
                     android:gravity="center"
-                    android:text="City de la Ville"
+                    android:layout_centerHorizontal="true"
+                    android:text="Santiago de Cali"
+                    android:paddingRight="50dp"
+                    android:layout_centerVertical="true"
                     android:textColor="@color/black"
                     android:textSize="40sp"
                     android:textStyle="bold"/>
@@ -79,6 +81,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:gravity="center"
+                android:layout_centerInParent="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="129dp"
                 android:layout_marginTop="94dp"
@@ -93,6 +96,7 @@
                 android:gravity="center"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="1dp"
+                android:layout_centerInParent="true"
                 android:layout_marginEnd="100dp"
                 android:fontFamily="serif"
                 android:text="Nubes negras"
@@ -110,6 +114,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="155dp"
+                android:layout_centerInParent="true"
                 android:layout_marginBottom="94dp"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:text="45,85°C"
@@ -123,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/climad"
                 android:gravity="center"
+                android:layout_centerInParent="true"
                 android:layout_alignTop="@id/tempd"
                 android:layout_alignEnd="@+id/tempd"
                 android:layout_marginTop="105dp"
@@ -136,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
                     android:fontFamily="serif"
+                    android:layout_centerInParent="true"
                     android:text="SensTerm"
                     android:textColor="@color/black"
                     android:textSize="22sp"/>
@@ -144,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
+                    android:layout_centerInParent="true"
                     android:text="Sensación térmica"
                     android:textColor="@color/black"
                     android:textSize="15sp"/>
@@ -291,6 +299,7 @@
                 <TextView
                     android:id="@+id/windspeedd"
                     android:layout_width="90dp"
+                    android:layout_centerInParent="true"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="14,55 m/s"
@@ -302,6 +311,7 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
+                    android:layout_centerInParent="true"
                     android:text="Velocidad del viento"
                     android:textColor="@color/black" />
 
