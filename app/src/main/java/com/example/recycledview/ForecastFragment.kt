@@ -18,26 +18,17 @@ import com.example.recycledview.data.Cities
 import com.example.recycledview.data.Forecasts
 import com.example.recycledview.databinding.FragmentForecastBinding
 import kotlinx.android.synthetic.main.fragment_forecast.view.*
-import android.R.attr.data
-import android.text.method.TextKeyListener.clear
-import android.R.attr.data
-import android.text.method.TextKeyListener.clear
-
-
-
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions {
+class ForecastFragment : Fragment(), ForecastsRecyclerViewAdapter2.onListInteractions {
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
     val apidir = "https://api.openweathermap.org/data/2.5/"
-    val forecasts = mutableListOf<Forecasts>()
-    var aux: Int = 0
     val users = mutableListOf<Forecasts>()
     private var userList = mutableListOf<Forecast>()
-    private var adapter : MyUserRecyclerViewAdapter2? = null
+    private var adapter : ForecastsRecyclerViewAdapter2? = null
     lateinit var navController: NavController
     private lateinit var viewModel: ForecastViewModel
     override fun onListItemInteraction(item: Forecasts?) {
@@ -64,7 +55,7 @@ class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractio
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable("data")!!
         navController = Navigation.findNavController(view)
-        adapter = MyUserRecyclerViewAdapter2(users,this)
+        adapter = ForecastsRecyclerViewAdapter2(users,this)
         view.recyclerva.layoutManager = LinearLayoutManager(context)
         view.recyclerva.adapter = adapter
 
@@ -95,8 +86,6 @@ class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractio
         Toast.makeText(this.context, "Perfil cargado", Toast.LENGTH_LONG).show()
     }
     fun ourhour(datatime: String ):String{
-            var aux: Int = 0
-
             var hora : Int = datatime.substring(11,13).toInt()
             var dia  : Int = datatime.substring(8,10).toInt()
             var mes : Int = datatime.substring(5,7).toInt()
@@ -136,7 +125,7 @@ class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractio
 
     }
     fun loadData() {
-        //users.clear()
+
         viewModel.getForecasts().observe(viewLifecycleOwner, Observer { obsUsers ->
             run {
                 userList = obsUsers as MutableList<Forecast>
@@ -148,7 +137,7 @@ class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractio
                         randUser.name, randUser.temp, randUser.temp_max, randUser.temp_min,
                         randUser.humidity, randUser.feels_like, randUser.pressure,
                         randUser.description,"http://api.openweathermap.org/img/w/"+randUser.icon+".png",
-                        randUser.speed, randUser.dt_txt+" UTC"
+                        randUser.speed, ourdata
                     )
                     println("userra  "+i+"  ... "+user)
                     users.add(user)

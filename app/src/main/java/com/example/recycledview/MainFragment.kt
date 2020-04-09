@@ -19,11 +19,11 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
+class MainFragment : Fragment(), CitiesRecyclerViewAdapter.onListInteractions {
 
 
     val cities = mutableListOf<Cities>()
-    private var adapter : MyUserRecyclerViewAdapter? = null
+    private var adapter : CitiesRecyclerViewAdapter? = null
     lateinit var navController: NavController
     private lateinit var viewModel: ForecastViewModel
     private var userList2 = mutableListOf<Forecast>()
@@ -74,7 +74,7 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
-        adapter = MyUserRecyclerViewAdapter(cities,this)
+        adapter = CitiesRecyclerViewAdapter(cities,this)
         view.recyclerv.layoutManager = LinearLayoutManager(context)
         view.recyclerv.adapter = adapter
 

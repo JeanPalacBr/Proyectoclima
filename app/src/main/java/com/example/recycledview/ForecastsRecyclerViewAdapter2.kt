@@ -11,15 +11,14 @@ import com.bumptech.glide.Glide
 import com.example.recycledview.data.Forecasts
 
 
-class MyUserRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, private val mListener : MyUserRecyclerViewAdapter2.onListInteractions):RecyclerView.Adapter<MyUserRecyclerViewAdapter2.ViewHolder>(){
+class ForecastsRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, private val mListener : ForecastsRecyclerViewAdapter2.onListInteractions):RecyclerView.Adapter<ForecastsRecyclerViewAdapter2.ViewHolder>(){
     private val lastItem = mutableListOf<Int>()
     private var opened: Int = 0
     private var openeda: Int = mValue.size
-    private var yc: Boolean = false
-    private var openedb: Int = 0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        //opened = mValue.size-40
+
         var va = LayoutInflater.from(parent.context).inflate(R.layout.row2,parent,false)
         return ViewHolder(va)
     }
@@ -32,26 +31,30 @@ class MyUserRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, pri
         return lastItem
     }
 
-    override fun onBindViewHolder(holder: MyUserRecyclerViewAdapter2.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ForecastsRecyclerViewAdapter2.ViewHolder, position: Int) {
         if(openeda!=mValue.size){
             opened = mValue.size-40
             openeda = mValue.size
-            
+
         }
         if(mValue.size<=40){
             holder.bindItems(mValue[position])
             opened = mValue.size
         }else {
-            if (mValue.size > 40) {
+            if (mValue.size > 40 && opened != mValue.size-1) {
                 holder.bindItems(mValue[opened])
                 opened++
                 println("opened"+opened+" - - "+mValue.size)
+            }else{
+                if(opened != mValue.size-1){
+
+                }
             }
         }
         if(opened==39){
             println("opened")
         }
-
+        println("opened22222 - "+opened+" - - "+mValue.size)
 
 
         holder.itemView.setOnClickListener{
@@ -59,6 +62,7 @@ class MyUserRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, pri
 
         }
     }
+
 
     inner class ViewHolder(view:View):RecyclerView.ViewHolder(view){
 

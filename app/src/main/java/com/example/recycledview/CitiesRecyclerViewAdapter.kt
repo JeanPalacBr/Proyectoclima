@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.recycledview.data.Cities
 
 
-class MyUserRecyclerViewAdapter(private val mValue: List<Cities>,private val mListener : MyUserRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>(){
+class CitiesRecyclerViewAdapter(private val mValue: List<Cities>, private val mListener : CitiesRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<CitiesRecyclerViewAdapter.ViewHolder>(){
 
 
 
@@ -26,7 +26,7 @@ class MyUserRecyclerViewAdapter(private val mValue: List<Cities>,private val mLi
         return mValue.size
     }
 
-    override fun onBindViewHolder(holder: MyUserRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CitiesRecyclerViewAdapter.ViewHolder, position: Int) {
         holder.bindItems(mValue[position])
 
         holder.itemView.setOnClickListener{
