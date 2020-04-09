@@ -15,9 +15,17 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recycledview.Util.getStringRequest
 import com.example.recycledview.data.Cities
-import com.example.recycledview.data.User
+import com.example.recycledview.data.Forecasts
 import com.example.recycledview.databinding.FragmentForecastBinding
 import kotlinx.android.synthetic.main.fragment_forecast.view.*
+import android.R.attr.data
+import android.text.method.TextKeyListener.clear
+import android.R.attr.data
+import android.text.method.TextKeyListener.clear
+
+
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -25,17 +33,18 @@ import kotlinx.android.synthetic.main.fragment_forecast.view.*
 class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractions {
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
     val apidir = "https://api.openweathermap.org/data/2.5/"
-    val forecasts = mutableListOf<User>()
-    val users = mutableListOf<User>()
+    val forecasts = mutableListOf<Forecasts>()
+    var aux: Int = 0
+    val users = mutableListOf<Forecasts>()
     private var userList = mutableListOf<Forecast>()
     private var adapter : MyUserRecyclerViewAdapter2? = null
     lateinit var navController: NavController
-    private lateinit var viewModel: RandomUserViewModel
-    override fun onListItemInteraction(item: User?) {
+    private lateinit var viewModel: ForecastViewModel
+    override fun onListItemInteraction(item: Forecasts?) {
         Toast.makeText(this.context, "Cargado", Toast.LENGTH_LONG).show()
     }
 
-    override fun onListButtonInteraction(item: User?) {
+    override fun onListButtonInteraction(item: Forecasts?) {
 
     }
 
@@ -47,7 +56,7 @@ class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractio
         savedInstanceState: Bundle?
     ): View? {
         binder = DataBindingUtil.inflate(inflater,R.layout.fragment_forecast,container,false)
-        viewModel = ViewModelProvider(this).get(RandomUserViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
         return binder.root
     }
 
@@ -55,27 +64,29 @@ class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractio
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable("data")!!
         navController = Navigation.findNavController(view)
-
         adapter = MyUserRecyclerViewAdapter2(users,this)
         view.recyclerva.layoutManager = LinearLayoutManager(context)
         view.recyclerva.adapter = adapter
 
+
         VolleySingleton.getInstance(activity!!.applicationContext).addToRequestQueue(
             getStringRequest(apidir+"forecast?id=3689147&lang=es&units=metric&"+apik))
-        when(user.cityname){
-            "Barranquilla"->viewModel.addUsers(apidir+"forecast?id=3689147&lang=es&units=metric&"+apik,1)
-            "Bogotá"->viewModel.addUsers(apidir+"forecast?id=3688689&lang=es&units=metric&"+apik,1)
-            "Santiago de Cali"->viewModel.addUsers(apidir+"forecast?id=3687925&lang=es&units=metric&"+apik,1)
-            "Medellín"->viewModel.addUsers(apidir+"forecast?id=3674962&lang=es&units=metric&"+apik,1)
-            "Bucaramanga"->viewModel.addUsers(apidir+"forecast?id=3688465&lang=es&units=metric&"+apik,1)
-            "Cartagena"->viewModel.addUsers(apidir+"forecast?id=3687238&lang=es&units=metric&"+apik,1)
-            "Pereira"->viewModel.addUsers(apidir+"forecast?id=3672486&lang=es&units=metric&"+apik,1)
-            "Santa Marta"->viewModel.addUsers(apidir+"forecast?id=3668605&lang=es&units=metric&"+apik,1)
-            "Manizales"->viewModel.addUsers(apidir+"forecast?id=3675443&lang=es&units=metric&"+apik,1)
-            "Ibagué"->viewModel.addUsers(apidir+"forecast?id=3680656&lang=es&units=metric&"+apik,1)
-        }
-        loadData()
 
+
+        when(user.cityname){
+            "Barranquilla"->viewModel.addForecastCity(apidir+"forecast?id=3689147&lang=es&units=metric&"+apik,1)
+            "Bogotá"->viewModel.addForecastCity(apidir+"forecast?id=3688689&lang=es&units=metric&"+apik,1)
+            "Santiago de Cali"->viewModel.addForecastCity(apidir+"forecast?id=3687925&lang=es&units=metric&"+apik,1)
+            "Medellín"->viewModel.addForecastCity(apidir+"forecast?id=3674962&lang=es&units=metric&"+apik,1)
+            "Bucaramanga"->viewModel.addForecastCity(apidir+"forecast?id=3688465&lang=es&units=metric&"+apik,1)
+            "Cartagena"->viewModel.addForecastCity(apidir+"forecast?id=3687238&lang=es&units=metric&"+apik,1)
+            "Pereira"->viewModel.addForecastCity(apidir+"forecast?id=3672486&lang=es&units=metric&"+apik,1)
+            "Santa Marta"->viewModel.addForecastCity(apidir+"forecast?id=3668605&lang=es&units=metric&"+apik,1)
+            "Manizales"->viewModel.addForecastCity(apidir+"forecast?id=3675443&lang=es&units=metric&"+apik,1)
+            "Ibagué"->viewModel.addForecastCity(apidir+"forecast?id=3680656&lang=es&units=metric&"+apik,1)
+        }
+
+        loadData()
 
 
         //binder = DataBindingUtil.setContentView(this.requireActivity(), R.layout.fragment_forecast)
@@ -125,18 +136,19 @@ class ForecastFragment : Fragment(), MyUserRecyclerViewAdapter2.onListInteractio
 
     }
     fun loadData() {
-        viewModel.getUsers().observe(viewLifecycleOwner, Observer { obsUsers ->
+        //users.clear()
+        viewModel.getForecasts().observe(viewLifecycleOwner, Observer { obsUsers ->
             run {
                 userList = obsUsers as MutableList<Forecast>
                 var i = 0
 
                 for (randUser in userList) {
                     val ourdata: String = ourhour(randUser.dt_txt)
-                    val user = User(
+                    val user = Forecasts(
                         randUser.name, randUser.temp, randUser.temp_max, randUser.temp_min,
                         randUser.humidity, randUser.feels_like, randUser.pressure,
                         randUser.description,"http://api.openweathermap.org/img/w/"+randUser.icon+".png",
-                        randUser.speed, ourdata
+                        randUser.speed, randUser.dt_txt+" UTC"
                     )
                     println("userra  "+i+"  ... "+user)
                     users.add(user)

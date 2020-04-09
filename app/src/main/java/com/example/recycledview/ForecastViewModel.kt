@@ -5,7 +5,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 
-class RandomUserViewModel(application: Application) : AndroidViewModel(application) {
+class ForecastViewModel(application: Application) : AndroidViewModel(application) {
 
     private var forecastDAO : ForecastDAO
 
@@ -13,12 +13,12 @@ class RandomUserViewModel(application: Application) : AndroidViewModel(applicati
         forecastDAO = ForecastDAO.getInstance(this.getApplication())
     }
 
-    fun addUsers(url:String, type:Int) {
-        forecastDAO.addUsers(url,type)
+    fun addForecastCity(url:String, type:Int) {
+        forecastDAO.addForecasts(url,type)
     }
 
-    internal fun getUsers(): MutableLiveData<List<Forecast>> {
-        return forecastDAO.getUsers()
+    internal fun getForecasts(): MutableLiveData<List<Forecast>> {
+        return forecastDAO.getForecasts()
     }
     internal fun getCities(): MutableLiveData<List<Forecast>> {
         return forecastDAO.getCities()

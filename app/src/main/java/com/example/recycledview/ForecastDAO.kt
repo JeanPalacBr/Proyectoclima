@@ -12,9 +12,9 @@ import org.json.JSONObject
 
 class ForecastDAO private constructor(var context: Context) {
 
-    private val users = MutableLiveData<List<Forecast>>()
+    private val forecasts = MutableLiveData<List<Forecast>>()
     private val cities = MutableLiveData<List<Forecast>>()
-    private val userList = mutableListOf<Forecast>()
+    private val foreList = mutableListOf<Forecast>()
     private val cityList = mutableListOf<Forecast>()
     private var queue: RequestQueue
 
@@ -32,12 +32,12 @@ class ForecastDAO private constructor(var context: Context) {
             }
     }
 
-    fun addUsers(url:String, type:Int) {
+    fun addForecasts(url:String, type:Int) {
         VolleySingleton.getInstance(context).addToRequestQueue(getJsonObject(url,type))
 
     }
 
-    internal fun getUsers() = users
+    internal fun getForecasts() = forecasts
     internal fun getCities() = cities
 
     fun getJsonObject(url: String, type:Int): JsonObjectRequest{
@@ -67,15 +67,15 @@ class ForecastDAO private constructor(var context: Context) {
         val size: Int = list.size
         if(type==1){
             for (i in 0 until size) {
-                val user = list[i]
-                userList.add(user)
+                val fore = list[i]
+                foreList.add(fore)
             }
 
-            users.value = userList
+            forecasts.value = foreList
         }else{
             for (i in 0 until size) {
-                val user = list[i]
-                cityList.add(user)
+                val cit = list[i]
+                cityList.add(cit)
             }
             cities.value = cityList
 

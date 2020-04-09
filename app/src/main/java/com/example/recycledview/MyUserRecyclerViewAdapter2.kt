@@ -8,12 +8,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.recycledview.data.User
+import com.example.recycledview.data.Forecasts
 
 
-class MyUserRecyclerViewAdapter2(private val mValue: List<User>, private val mListener : MyUserRecyclerViewAdapter2.onListInteractions):RecyclerView.Adapter<MyUserRecyclerViewAdapter2.ViewHolder>(){
+class MyUserRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, private val mListener : MyUserRecyclerViewAdapter2.onListInteractions):RecyclerView.Adapter<MyUserRecyclerViewAdapter2.ViewHolder>(){
+    private val lastItem = mutableListOf<Int>()
+    private var opened: Int = 0
+    private var openeda: Int = mValue.size
+    private var yc: Boolean = false
+    private var openedb: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        //opened = mValue.size-40
         var va = LayoutInflater.from(parent.context).inflate(R.layout.row2,parent,false)
         return ViewHolder(va)
     }
@@ -21,18 +27,42 @@ class MyUserRecyclerViewAdapter2(private val mValue: List<User>, private val mLi
     override fun getItemCount(): Int {
         return mValue.size
     }
+    fun lastItem():MutableList<Int>{
+        lastItem.add(mValue.size)
+        return lastItem
+    }
 
     override fun onBindViewHolder(holder: MyUserRecyclerViewAdapter2.ViewHolder, position: Int) {
-        holder.bindItems(mValue[mValue.size-1])
+        if(openeda!=mValue.size){
+            opened = mValue.size-40
+            openeda = mValue.size
+            
+        }
+        if(mValue.size<=40){
+            holder.bindItems(mValue[position])
+            opened = mValue.size
+        }else {
+            if (mValue.size > 40) {
+                holder.bindItems(mValue[opened])
+                opened++
+                println("opened"+opened+" - - "+mValue.size)
+            }
+        }
+        if(opened==39){
+            println("opened")
+        }
+
+
 
         holder.itemView.setOnClickListener{
             mListener?.onListItemInteraction(mValue[position])
+
         }
     }
 
     inner class ViewHolder(view:View):RecyclerView.ViewHolder(view){
 
-        fun bindItems(data: User){
+        fun bindItems(data: Forecasts){
             val nombreciudad:TextView=itemView.findViewById(R.id.citynd)
             val tempemin:TextView=itemView.findViewById(R.id.temp_mind)
             val tempemax:TextView=itemView.findViewById(R.id.temp_maxd)
@@ -60,14 +90,16 @@ class MyUserRecyclerViewAdapter2(private val mValue: List<User>, private val mLi
             itemView.setOnClickListener{
                 Toast.makeText(itemView.context, "${data.cityname}",Toast.LENGTH_LONG).show()
             }
+
         }
     }
     interface  onListInteractions {
-        fun onListItemInteraction(item: User?)
+        fun onListItemInteraction(item: Forecasts?)
 
-        fun onListButtonInteraction(item: User?)
+        fun onListButtonInteraction(item: Forecasts?)
     }
     public fun updateData() {
+
         notifyDataSetChanged()
     }
 }

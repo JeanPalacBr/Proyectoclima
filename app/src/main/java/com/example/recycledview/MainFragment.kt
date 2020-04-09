@@ -25,7 +25,7 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
     val cities = mutableListOf<Cities>()
     private var adapter : MyUserRecyclerViewAdapter? = null
     lateinit var navController: NavController
-    private lateinit var viewModel: RandomUserViewModel
+    private lateinit var viewModel: ForecastViewModel
     private var userList2 = mutableListOf<Forecast>()
     val urls2 = mutableListOf<String>()
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
@@ -50,19 +50,19 @@ class MainFragment : Fragment(), MyUserRecyclerViewAdapter.onListInteractions {
         urls2.add(apidir+"weather?id=3675443&lang=es&units=metric&"+apik) //Manizales
         urls2.add(apidir+"weather?id=3680656&lang=es&units=metric&"+apik) //Ibague
 
-        viewModel = ViewModelProvider(this).get(RandomUserViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
         VolleySingleton.getInstance(activity!!.applicationContext).addToRequestQueue(getStringRequest(urls2[0]))
 
-        viewModel.addUsers(urls2[0],2)
-        viewModel.addUsers(urls2[1],2)
-        viewModel.addUsers(urls2[2],2)
-        viewModel.addUsers(urls2[3],2)
-        viewModel.addUsers(urls2[4],2)
-        viewModel.addUsers(urls2[5],2)
-        viewModel.addUsers(urls2[6],2)
-        viewModel.addUsers(urls2[7],2)
-        viewModel.addUsers(urls2[8],2)
-        viewModel.addUsers(urls2[9],2)
+        viewModel.addForecastCity(urls2[0],2)
+        viewModel.addForecastCity(urls2[1],2)
+        viewModel.addForecastCity(urls2[2],2)
+        viewModel.addForecastCity(urls2[3],2)
+        viewModel.addForecastCity(urls2[4],2)
+        viewModel.addForecastCity(urls2[5],2)
+        viewModel.addForecastCity(urls2[6],2)
+        viewModel.addForecastCity(urls2[7],2)
+        viewModel.addForecastCity(urls2[8],2)
+        viewModel.addForecastCity(urls2[9],2)
 
 
             loadData2()

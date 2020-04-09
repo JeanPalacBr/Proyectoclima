@@ -39,12 +39,12 @@ data class Cities (val cityname: String?, val temp: Double, val temp_max: Double
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<User> {
-        override fun createFromParcel(parcel: Parcel): User {
-            return User(parcel)
+    companion object CREATOR : Parcelable.Creator<Forecasts> {
+        override fun createFromParcel(parcel: Parcel): Forecasts {
+            return Forecasts(parcel)
         }
 
-        override fun newArray(size: Int): Array<User?> {
+        override fun newArray(size: Int): Array<Forecasts?> {
             return arrayOfNulls(size)
         }
     }

@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-data class User (val cityname: String?, val temp: Double, val temp_max: Double,val temp_min: Double, val Humidity: Double, val Feels_like: Double,val Pressure: Double,val Description: String?, val IconID: String?, val WindSpeeed: Double,val datehour: String?): Parcelable
+data class Forecasts (val cityname: String?, val temp: Double, val temp_max: Double, val temp_min: Double, val Humidity: Double, val Feels_like: Double, val Pressure: Double, val Description: String?, val IconID: String?, val WindSpeeed: Double, val datehour: String?): Parcelable
 {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -40,12 +40,12 @@ data class User (val cityname: String?, val temp: Double, val temp_max: Double,v
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<User> {
-        override fun createFromParcel(parcel: Parcel): User {
-            return User(parcel)
+    companion object CREATOR : Parcelable.Creator<Forecasts> {
+        override fun createFromParcel(parcel: Parcel): Forecasts {
+            return Forecasts(parcel)
         }
 
-        override fun newArray(size: Int): Array<User?> {
+        override fun newArray(size: Int): Array<Forecasts?> {
             return arrayOfNulls(size)
         }
     }
