@@ -23,12 +23,12 @@ import kotlinx.android.synthetic.main.fragment_forecast.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class ForecastFragment : Fragment(), ForecastsRecyclerViewAdapter2.onListInteractions {
+class ForecastFragment : Fragment(), ForecastsRecyclerViewAdapter.onListInteractions {
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
     val apidir = "https://api.openweathermap.org/data/2.5/"
     val users = mutableListOf<Forecasts>()
     private var userList = mutableListOf<Forecast>()
-    private var adapter : ForecastsRecyclerViewAdapter2? = null
+    private var adapter : ForecastsRecyclerViewAdapter? = null
     lateinit var navController: NavController
     private lateinit var viewModel: ForecastViewModel
     override fun onListItemInteraction(item: Forecasts?) {
@@ -55,7 +55,7 @@ class ForecastFragment : Fragment(), ForecastsRecyclerViewAdapter2.onListInterac
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable("data")!!
         navController = Navigation.findNavController(view)
-        adapter = ForecastsRecyclerViewAdapter2(users,this)
+        adapter = ForecastsRecyclerViewAdapter(users,this)
         view.recyclerva.layoutManager = LinearLayoutManager(context)
         view.recyclerva.adapter = adapter
 

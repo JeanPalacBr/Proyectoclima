@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.recycledview.data.Forecasts
 
 
-class ForecastsRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, private val mListener : ForecastsRecyclerViewAdapter2.onListInteractions):RecyclerView.Adapter<ForecastsRecyclerViewAdapter2.ViewHolder>(){
+class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, private val mListener : ForecastsRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<ForecastsRecyclerViewAdapter.ViewHolder>(){
     private val lastItem = mutableListOf<Int>()
     private var opened: Int = 0
     private var openeda: Int = mValue.size
@@ -31,7 +31,7 @@ class ForecastsRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, 
         return lastItem
     }
 
-    override fun onBindViewHolder(holder: ForecastsRecyclerViewAdapter2.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ForecastsRecyclerViewAdapter.ViewHolder, position: Int) {
         if(openeda!=mValue.size){
             opened = mValue.size-40
             openeda = mValue.size
@@ -51,10 +51,7 @@ class ForecastsRecyclerViewAdapter2(private val mValue: MutableList<Forecasts>, 
                 }
             }
         }
-        if(opened==39){
-            println("opened")
-        }
-        println("opened22222 - "+opened+" - - "+mValue.size)
+
 
 
         holder.itemView.setOnClickListener{
