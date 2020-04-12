@@ -1,10 +1,7 @@
 package com.example.recycledview
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +11,6 @@ import com.example.recycledview.databinding.Row2Binding
 
 
 class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, private val mListener : ForecastsRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<ForecastsRecyclerViewAdapter.ViewHolder>(){
-    private val lastItem = mutableListOf<Int>()
     private var opened: Int = 0
     private var openeda: Int = mValue.size
 
@@ -29,10 +25,6 @@ class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, p
 
     override fun getItemCount(): Int {
         return mValue.size
-    }
-    fun lastItem():MutableList<Int>{
-        lastItem.add(mValue.size)
-        return lastItem
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

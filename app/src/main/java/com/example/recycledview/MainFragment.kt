@@ -27,7 +27,6 @@ class MainFragment : Fragment(), CitiesRecyclerViewAdapter.onListInteractions {
     lateinit var navController: NavController
     private lateinit var viewModel: ForecastViewModel
     private var userList2 = mutableListOf<Forecast>()
-    val urls2 = mutableListOf<String>()
     val apik = "appid=37dd19dab504fd2b71578cb95bfa9bd8"
     val apidir = "https://api.openweathermap.org/data/2.5/"
 
@@ -37,32 +36,21 @@ class MainFragment : Fragment(), CitiesRecyclerViewAdapter.onListInteractions {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-        //binderP = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container, false)
-
-        urls2.add(apidir+"weather?id=3689147&lang=es&units=metric&"+apik) //Barranquilla
-        urls2.add(apidir+"weather?id=3688689&lang=es&units=metric&"+apik) //Bogota
-        urls2.add(apidir+"weather?id=3687925&lang=es&units=metric&"+apik) //Cali
-        urls2.add(apidir+"weather?id=3674962&lang=es&units=metric&"+apik) //Medellin
-        urls2.add(apidir+"weather?id=3688465&lang=es&units=metric&"+apik) //Bucaramanga
-        urls2.add(apidir+"weather?id=3687238&lang=es&units=metric&"+apik) //Cartagena
-        urls2.add(apidir+"weather?id=3672486&lang=es&units=metric&"+apik) //Pereira
-        urls2.add(apidir+"weather?id=3668605&lang=es&units=metric&"+apik) //Santa marta
-        urls2.add(apidir+"weather?id=3675443&lang=es&units=metric&"+apik) //Manizales
-        urls2.add(apidir+"weather?id=3680656&lang=es&units=metric&"+apik) //Ibague
 
         viewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
-        VolleySingleton.getInstance(activity!!.applicationContext).addToRequestQueue(getStringRequest(urls2[0]))
+        VolleySingleton.getInstance(activity!!.applicationContext)
+            .addToRequestQueue(getStringRequest(apidir+"weather?id=3689147&lang=es&units=metric&"+apik))
 
-        viewModel.addForecastCity(urls2[0],2)
-        viewModel.addForecastCity(urls2[1],2)
-        viewModel.addForecastCity(urls2[2],2)
-        viewModel.addForecastCity(urls2[3],2)
-        viewModel.addForecastCity(urls2[4],2)
-        viewModel.addForecastCity(urls2[5],2)
-        viewModel.addForecastCity(urls2[6],2)
-        viewModel.addForecastCity(urls2[7],2)
-        viewModel.addForecastCity(urls2[8],2)
-        viewModel.addForecastCity(urls2[9],2)
+        viewModel.addForecastCity(apidir+"weather?id=3689147&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3688689&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3687925&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3674962&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3688465&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3687238&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3668605&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3672486&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3675443&lang=es&units=metric&"+apik,2)
+        viewModel.addForecastCity(apidir+"weather?id=3680656&lang=es&units=metric&"+apik,2)
 
 
             loadData2()

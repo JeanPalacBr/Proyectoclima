@@ -41,11 +41,7 @@ class ForecastDAO private constructor(var context: Context) {
     internal fun getCities() = cities
 
     fun getJsonObject(url: String, type:Int): JsonObjectRequest{
-        //val url ="https://api.openweathermap.org/data/2.5/forecast?id=3689147&lang=es&units=metric&mode=JSON&appid=37dd19dab504fd2b71578cb95bfa9bd8"
-        //"https://randomuser.me/api/?results=5"
-            //"http://dataservice.accuweather.com/forecasts/v1/daily/5day/107123"
-              //
-        val rr : String = ""
+
         val JOR = JsonObjectRequest(
             Request.Method.GET, url,null,
             Response.Listener { response ->
