@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recycledview.data.Forecasts
+import com.example.recycledview.databinding.Row2Binding
 
 
 class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, private val mListener : ForecastsRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<ForecastsRecyclerViewAdapter.ViewHolder>(){
@@ -17,10 +19,12 @@ class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, p
     private var openeda: Int = mValue.size
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        var va = LayoutInflater.from(parent.context).inflate(R.layout.row2,parent,false)
-        return ViewHolder(va)
+
+        return ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+            R.layout.row2,parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +35,9 @@ class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, p
         return lastItem
     }
 
-    override fun onBindViewHolder(holder: ForecastsRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.Row2Binding.forecs = mValue[position]
+            holder.bindItems(mValue[position])
         if(openeda!=mValue.size){
             opened = mValue.size-40
             openeda = mValue.size
@@ -39,10 +45,12 @@ class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, p
         }
         if(mValue.size<=40){
             holder.bindItems(mValue[position])
+            holder.Row2Binding.forecs = mValue[position]
             opened = mValue.size
         }else {
             if (mValue.size > 40 && opened != mValue.size-1) {
                 holder.bindItems(mValue[opened])
+                holder.Row2Binding.forecs = mValue[opened]
                 opened++
                 println("opened"+opened+" - - "+mValue.size)
             }else{
@@ -58,35 +66,17 @@ class ForecastsRecyclerViewAdapter(private val mValue: MutableList<Forecasts>, p
             mListener?.onListItemInteraction(mValue[position])
 
         }
+
+
+
     }
 
 
-    inner class ViewHolder(view:View):RecyclerView.ViewHolder(view){
+    inner class ViewHolder(val Row2Binding: Row2Binding):RecyclerView.ViewHolder(Row2Binding.root){
 
         fun bindItems(data: Forecasts){
-            val nombreciudad:TextView=itemView.findViewById(R.id.citynd)
-            val tempemin:TextView=itemView.findViewById(R.id.temp_mind)
-            val tempemax:TextView=itemView.findViewById(R.id.temp_maxd)
-            val tempesens:TextView=itemView.findViewById(R.id.temp_feeld)
-            val tempeact:TextView=itemView.findViewById(R.id.tempd)
-            val estado:TextView=itemView.findViewById(R.id.climad)
-            val dateatime:TextView=itemView.findViewById(R.id.date_timed)
-            val humidity:TextView=itemView.findViewById(R.id.humidityd)
-            val windspeed:TextView=itemView.findViewById(R.id.windspeedd)
-            val pressure:TextView=itemView.findViewById(R.id.pressured)
-            val imagen:ImageView=itemView.findViewById(R.id.ImgEstado)
 
-            nombreciudad.text = data.cityname
-            tempemin.text = data.temp_min.toString()+" °c"
-            tempemax.text = data.temp_max.toString()+" °c"
-            tempesens.text = data.Feels_like.toString()+" °c"
-            tempeact.text = data.temp.toString()+" °c"
-            estado.text = data.Description
-            dateatime.text = data.datehour.toString()
-            humidity.text = data.Humidity.toString()+ "%"
-            windspeed.text = data.WindSpeeed.toString()+" m/s"
-            pressure.text = data.Pressure.toString()+ " kpa"
-            Glide.with(itemView.context).load(data.IconID).into(imagen)
+            Glide.with(itemView.context).load(data.IconID).into(itemView.findViewById(R.id.ImgEstado))
 
             itemView.setOnClickListener{
                 Toast.makeText(itemView.context, "${data.cityname}",Toast.LENGTH_LONG).show()

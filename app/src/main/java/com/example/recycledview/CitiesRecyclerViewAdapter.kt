@@ -1,14 +1,13 @@
 package com.example.recycledview
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recycledview.data.Cities
+import com.example.recycledview.databinding.RowBinding
 
 
 class CitiesRecyclerViewAdapter(private val mValue: List<Cities>, private val mListener : CitiesRecyclerViewAdapter.onListInteractions):RecyclerView.Adapter<CitiesRecyclerViewAdapter.ViewHolder>(){
@@ -17,9 +16,10 @@ class CitiesRecyclerViewAdapter(private val mValue: List<Cities>, private val mL
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var va = LayoutInflater.from(parent.context).inflate(R.layout.row,parent,false)
 
-        return ViewHolder(va)
+        return ViewHolder(
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+                R.layout.row,parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -27,6 +27,7 @@ class CitiesRecyclerViewAdapter(private val mValue: List<Cities>, private val mL
     }
 
     override fun onBindViewHolder(holder: CitiesRecyclerViewAdapter.ViewHolder, position: Int) {
+        holder.RowBinding.citiees = mValue[position]
         holder.bindItems(mValue[position])
 
         holder.itemView.setOnClickListener{
@@ -34,18 +35,11 @@ class CitiesRecyclerViewAdapter(private val mValue: List<Cities>, private val mL
         }
     }
 
-    inner class ViewHolder(view:View):RecyclerView.ViewHolder(view){
+    inner class ViewHolder(val RowBinding: RowBinding):RecyclerView.ViewHolder(RowBinding.root){
 
         fun bindItems(data: Cities){
-            val nombre:TextView=itemView.findViewById(R.id.textViewUserName)
-            val temperatura:TextView=itemView.findViewById(R.id.textViewUserLastName)
-            val estado:TextView=itemView.findViewById(R.id.textViewestado)
-            val imagen:ImageView=itemView.findViewById(R.id.UserPhoto)
-            nombre.text = data.cityname
-            temperatura.text = data.temp.toString()+" °c"
-            estado.text = data.Description
-            //apellido.text = data.temp
-            Glide.with(itemView.context).load(data.IconID).into(imagen)
+
+            Glide.with(itemView.context).load(data.IconID).into(itemView.findViewById(R.id.ActualWePhoto))
 
             itemView.setOnClickListener{
                 Toast.makeText(itemView.context, "${data.cityname}",Toast.LENGTH_LONG).show()
