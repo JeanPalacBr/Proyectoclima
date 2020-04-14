@@ -38,9 +38,6 @@ class MainFragment : Fragment(), CitiesRecyclerViewAdapter.onListInteractions {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         viewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
-        VolleySingleton.getInstance(activity!!.applicationContext)
-            .addToRequestQueue(getStringRequest(apidir+"weather?id=3689147&lang=es&units=metric&"+apik))
-
         viewModel.addForecastCity(apidir+"weather?id=3689147&lang=es&units=metric&"+apik,2)
         viewModel.addForecastCity(apidir+"weather?id=3688689&lang=es&units=metric&"+apik,2)
         viewModel.addForecastCity(apidir+"weather?id=3687925&lang=es&units=metric&"+apik,2)

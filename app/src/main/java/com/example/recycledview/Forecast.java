@@ -22,7 +22,7 @@ public class Forecast {
     public double speed;
 
 
-    public static ArrayList<Forecast> getUser(JSONObject response, int type) {
+    public static ArrayList<Forecast> getCityFore(JSONObject response, int type) {
         ArrayList<Forecast> list = new ArrayList<>();
 
         switch (type) {

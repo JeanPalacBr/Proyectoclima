@@ -57,7 +57,7 @@ class ForecastDAO private constructor(var context: Context) {
     }
 
     private fun parseObjectG(response: JSONObject, type: Int) {
-        val list = Forecast.getUser(response,type)
+        val list = Forecast.getCityFore(response,type)
         println(response)
         val i: Int = 0
         val size: Int = list.size
