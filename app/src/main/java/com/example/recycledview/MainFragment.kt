@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.recycledview.Util.getStringRequest
 import com.example.recycledview.data.Cities
 import kotlinx.android.synthetic.main.fragment_main.view.*
 

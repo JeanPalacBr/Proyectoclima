@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.recycledview.Util.getStringRequest
 import com.example.recycledview.data.Cities
 import com.example.recycledview.data.Forecasts
 import com.example.recycledview.databinding.FragmentForecastBinding
@@ -59,9 +58,6 @@ class ForecastFragment : Fragment(), ForecastsRecyclerViewAdapter.onListInteract
         view.recyclerva.layoutManager = LinearLayoutManager(context)
         view.recyclerva.adapter = adapter
 
-
-        VolleySingleton.getInstance(activity!!.applicationContext).addToRequestQueue(
-            getStringRequest(apidir+"forecast?id=3689147&lang=es&units=metric&"+apik))
 
 
         when(user.cityname){
@@ -133,6 +129,7 @@ class ForecastFragment : Fragment(), ForecastsRecyclerViewAdapter.onListInteract
 
                 for (randUser in userList) {
                     val ourdata: String = ourhour(randUser.dt_txt)
+
                     val user = Forecasts(
                         randUser.name, randUser.temp, randUser.temp_max, randUser.temp_min,
                         randUser.humidity, randUser.feels_like, randUser.pressure,
